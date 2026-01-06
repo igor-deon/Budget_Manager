@@ -13,6 +13,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
@@ -29,10 +30,11 @@ public class Account implements Serializable{
 	private OffsetDateTime creationDate;
 	
 	@ManyToOne
+	@JoinColumn(name="user_id")
 	private User user;
-	@OneToMany
-	private List<DebitExpense> expenses = new ArrayList<>();
-	@OneToMany
+	@OneToMany(mappedBy = "account")
+	private List<Expense> expenses = new ArrayList<>();
+	@OneToMany(mappedBy = "account")
 	private List<CreditCard> creditCards = new ArrayList<>();
 	
 	public Account() {}
@@ -95,11 +97,11 @@ public class Account implements Serializable{
 		this.user = user;
 	}
 
-	public List<DebitExpense> getExpenses() {
+	public List<Expense> getExpenses() {
 		return expenses;
 	}
 
-	public void setExpenses(List<DebitExpense> expenses) {
+	public void setExpenses(List<Expense> expenses) {
 		this.expenses = expenses;
 	}
 
@@ -130,5 +132,11 @@ public class Account implements Serializable{
 			return false;
 		Account other = (Account) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	@Override
+	public String toString() {
+		return "Account [id=" + id + ", name=" + name + ", type=" + type + ", balance=" + balance + ", creationDate="
+				+ creationDate + "]";
 	}
 }

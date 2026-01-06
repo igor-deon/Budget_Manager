@@ -12,8 +12,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "USERS")
 public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
@@ -26,7 +28,7 @@ public class User implements Serializable{
 	private OffsetDateTime signInDate;
 	private boolean userActive;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "user")
 	private List<Account> accounts = new ArrayList<>();
 	
 	public User() {}
@@ -117,7 +119,7 @@ public class User implements Serializable{
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", signInDate=" + signInDate + ", userActive="
-				+ userActive + "]";
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", hashPassword=" + hashPassword
+				+ ", signInDate=" + signInDate + ", userActive=" + userActive + "]";
 	}
 }

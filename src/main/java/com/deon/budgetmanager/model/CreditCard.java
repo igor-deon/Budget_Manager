@@ -1,7 +1,6 @@
 package com.deon.budgetmanager.model;
 
 import java.io.Serializable;
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -10,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
@@ -21,25 +21,26 @@ public class CreditCard implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
-	private Float limit;
+	private Float creditLimit;
 	private Integer statementDay;
 	private Integer dueDay;
 	
 	@ManyToOne
+	@JoinColumn(name="account_id")
 	private Account account;
-	@OneToMany
+	@OneToMany(mappedBy = "creditCard")
 	private List<Statement> statements = new ArrayList<>();
-	@OneToMany
-	private List<CreditExpense> expenses = new ArrayList<>();
+	@OneToMany(mappedBy = "creditCard")
+	private List<Expense> expenses = new ArrayList<>();
 	
 	public CreditCard() {}
 	
-	public CreditCard(String name, Float limit, Integer statementDay, Integer dueDay,
+	public CreditCard(String name, Float creditLimit, Integer statementDay, Integer dueDay,
 			Account account) {
 		super();
 		this.id = null;
 		this.name = name;
-		this.limit = limit;
+		this.creditLimit = creditLimit;
 		this.statementDay = statementDay;
 		this.dueDay = dueDay;
 		this.account = account;
@@ -62,11 +63,11 @@ public class CreditCard implements Serializable{
 	}
 	
 	public Float getLimit() {
-		return limit;
+		return creditLimit;
 	}
 	
-	public void setLimit(Float limit) {
-		this.limit = limit;
+	public void setLimit(Float creditLimit) {
+		this.creditLimit = creditLimit;
 	}
 	
 	public Integer getStatementDay() {
@@ -98,11 +99,11 @@ public class CreditCard implements Serializable{
 		this.statements = statements;
 	}
 	
-	public List<CreditExpense> getExpenses() {
+	public List<Expense> getExpenses() {
 		return expenses;
 	}
 
-	public void setExpenses(List<CreditExpense> expenses) {
+	public void setExpenses(List<Expense> expenses) {
 		this.expenses = expenses;
 	}
 
@@ -124,5 +125,11 @@ public class CreditCard implements Serializable{
 			return false;
 		CreditCard other = (CreditCard) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	@Override
+	public String toString() {
+		return "CreditCard [id=" + id + ", name=" + name + ", creditLimit=" + creditLimit + ", statementDay="
+				+ statementDay + ", dueDay=" + dueDay + "]";
 	}
 }

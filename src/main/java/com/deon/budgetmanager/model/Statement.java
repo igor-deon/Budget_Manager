@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -24,6 +25,7 @@ public class Statement implements Serializable{
 	private boolean isPaid;
 	
 	@ManyToOne
+	@JoinColumn(name="creditCard_id")
 	private CreditCard creditCard;
 	
 	public Statement() {}
@@ -115,5 +117,11 @@ public class Statement implements Serializable{
 			return false;
 		Statement other = (Statement) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	@Override
+	public String toString() {
+		return "Statement [id=" + id + ", statementDate=" + statementDate + ", dueDate=" + dueDate + ", totalValue="
+				+ totalValue + ", paidValue=" + paidValue + ", isPaid=" + isPaid + "]";
 	}
 }

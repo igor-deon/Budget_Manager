@@ -23,7 +23,7 @@ public class Category implements Serializable{
 	private Category parentCategory;
 	private List<Category> childCategories = new ArrayList<>();
 	
-	@OneToMany
+	@OneToMany(mappedBy = "category")
 	private List<Expense> expenses = new ArrayList<>();
 	
 	public Category() {}
@@ -94,5 +94,10 @@ public class Category implements Serializable{
 			return false;
 		Category other = (Category) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	@Override
+	public String toString() {
+		return "Category [id=" + id + ", name=" + name + "]";
 	}
 }
