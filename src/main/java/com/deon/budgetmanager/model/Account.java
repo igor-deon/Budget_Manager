@@ -1,8 +1,7 @@
 package com.deon.budgetmanager.model;
 
 import java.io.Serializable;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -27,15 +26,15 @@ public class Account implements Serializable{
 	private String name;
 	private AccountType type;
 	private Float balance;
-	private OffsetDateTime creationDate;
+	private LocalDate creationDate;
 	
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
 	@OneToMany(mappedBy = "account")
-	private List<Expense> expenses = new ArrayList<>();
+	private List<Income> incomes = new ArrayList<>();
 	@OneToMany(mappedBy = "account")
-	private List<CreditCard> creditCards = new ArrayList<>();
+	private List<Expense> expenses = new ArrayList<>();
 	
 	public Account() {}
 
@@ -45,7 +44,7 @@ public class Account implements Serializable{
 		this.name = name;
 		this.type = type;
 		this.balance = balance;
-		this.creationDate = OffsetDateTime.now(ZoneOffset.UTC);
+		this.creationDate = LocalDate.now();
 		this.user = user;
 	}
 
@@ -81,11 +80,11 @@ public class Account implements Serializable{
 		this.balance = balance;
 	}
 
-	public OffsetDateTime getCreationDate() {
+	public LocalDate getCreationDate() {
 		return creationDate;
 	}
 
-	public void setCreationDate(OffsetDateTime creationDate) {
+	public void setCreationDate(LocalDate creationDate) {
 		this.creationDate = creationDate;
 	}
 
@@ -97,20 +96,20 @@ public class Account implements Serializable{
 		this.user = user;
 	}
 
+	public List<Income> getIncomes() {
+		return incomes;
+	}
+
+	public void setIncomes(List<Income> incomes) {
+		this.incomes = incomes;
+	}
+
 	public List<Expense> getExpenses() {
 		return expenses;
 	}
 
 	public void setExpenses(List<Expense> expenses) {
 		this.expenses = expenses;
-	}
-
-	public List<CreditCard> getCreditCards() {
-		return creditCards;
-	}
-
-	public void setCreditCards(List<CreditCard> creditCards) {
-		this.creditCards = creditCards;
 	}
 
 	public static long getSerialversionuid() {

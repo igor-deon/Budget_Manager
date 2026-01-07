@@ -1,8 +1,7 @@
 package com.deon.budgetmanager.model;
 
 import java.io.Serializable;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -25,7 +24,7 @@ public class User implements Serializable{
 	private String name;
 	private String email;
 	private String hashPassword;
-	private OffsetDateTime signInDate;
+	private LocalDate signInDate;
 	private boolean userActive;
 	
 	@OneToMany(mappedBy = "user")
@@ -39,7 +38,7 @@ public class User implements Serializable{
 		this.name = name;
 		this.email = email;
 		this.hashPassword = hashPassword;
-		this.signInDate = OffsetDateTime.now(ZoneOffset.UTC);
+		this.signInDate = LocalDate.now();
 		this.userActive = true;
 	}
 
@@ -75,11 +74,11 @@ public class User implements Serializable{
 		this.hashPassword = hashPassword;
 	}
 
-	public OffsetDateTime getSignInDate() {
+	public LocalDate getSignInDate() {
 		return signInDate;
 	}
 
-	public void setSignInDate(OffsetDateTime signInDate) {
+	public void setSignInDate(LocalDate signInDate) {
 		this.signInDate = signInDate;
 	}
 
@@ -91,7 +90,6 @@ public class User implements Serializable{
 		this.userActive = userActive;
 	}
 
-	
 	public List<Account> getAccounts() {
 		return accounts;
 	}
