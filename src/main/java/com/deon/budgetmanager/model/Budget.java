@@ -26,6 +26,7 @@ public class Budget implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
+	
 	@OneToMany(mappedBy = "budget")
 	private List<CategoryBudget> categoryBudgets = new ArrayList<>();
 

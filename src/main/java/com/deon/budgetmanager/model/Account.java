@@ -31,8 +31,10 @@ public class Account implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
+	
 	@OneToMany(mappedBy = "account")
 	private List<Income> incomes = new ArrayList<>();
+	
 	@OneToMany(mappedBy = "account")
 	private List<Expense> expenses = new ArrayList<>();
 	

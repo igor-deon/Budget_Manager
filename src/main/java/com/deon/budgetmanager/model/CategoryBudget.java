@@ -23,6 +23,7 @@ public class CategoryBudget implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "budget_id")
 	private Budget budget;
+	
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
