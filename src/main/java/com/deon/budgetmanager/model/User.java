@@ -29,6 +29,8 @@ public class User implements Serializable{
 	
 	@OneToMany(mappedBy = "user")
 	private List<Account> accounts = new ArrayList<>();
+	@OneToMany(mappedBy = "user")
+	private List<Budget> budgets = new ArrayList<>();
 	
 	public User() {}
 	
@@ -96,6 +98,18 @@ public class User implements Serializable{
 
 	public void setAccounts(List<Account> accounts) {
 		this.accounts = accounts;
+	}
+	
+	public List<Budget> getBudgets() {
+		return budgets;
+	}
+
+	public void setBudgets(List<Budget> budgets) {
+		this.budgets = budgets;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	@Override

@@ -9,32 +9,33 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class Category implements Serializable{
+public class Budget implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
+	private Float total;
 	
-	private Category parentCategory;
-	private List<Category> childCategories = new ArrayList<>();
-	
-	@OneToMany(mappedBy = "category")
-	private List<Expense> expenses = new ArrayList<>();
-	@OneToMany(mappedBy = "category")
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+	@OneToMany(mappedBy = "budget")
 	private List<CategoryBudget> categoryBudgets = new ArrayList<>();
-	
-	public Category() {}
 
-	public Category(String name, Category parentCategory) {
+	public Budget() {}
+	
+	public Budget(Integer id, String name, Float total) {
 		super();
-		this.id = null;
+		this.id = id;
 		this.name = name;
-		this.parentCategory = parentCategory;
+		this.total = total;
 	}
 
 	public Integer getId() {
@@ -53,28 +54,12 @@ public class Category implements Serializable{
 		this.name = name;
 	}
 
-	public Category getParentCategory() {
-		return parentCategory;
+	public Float getTotal() {
+		return total;
 	}
 
-	public void setParentCategory(Category parentCategory) {
-		this.parentCategory = parentCategory;
-	}
-
-	public List<Category> getChildCategories() {
-		return childCategories;
-	}
-
-	public void setChildCategories(List<Category> childCategories) {
-		this.childCategories = childCategories;
-	}
-
-	public List<Expense> getExpenses() {
-		return expenses;
-	}
-
-	public void setExpenses(List<Expense> expenses) {
-		this.expenses = expenses;
+	public void setTotal(Float total) {
+		this.total = total;
 	}
 
 	public List<CategoryBudget> getCategoryBudgets() {
@@ -84,11 +69,11 @@ public class Category implements Serializable{
 	public void setCategoryBudgets(List<CategoryBudget> categoryBudgets) {
 		this.categoryBudgets = categoryBudgets;
 	}
-
+	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -102,12 +87,12 @@ public class Category implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Category other = (Category) obj;
+		Budget other = (Budget) obj;
 		return Objects.equals(id, other.id);
 	}
 
 	@Override
 	public String toString() {
-		return "Category [id=" + id + ", name=" + name + "]";
+		return "Budget [id=" + id + ", name=" + name + ", total=" + total + "]";
 	}
 }

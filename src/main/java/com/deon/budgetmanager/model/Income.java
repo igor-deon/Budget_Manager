@@ -7,7 +7,7 @@ import jakarta.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("INCOME")
-public abstract class Income extends Transaction implements Serializable{
+public class Income extends Transaction implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	public Income() {

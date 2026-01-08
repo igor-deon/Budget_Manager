@@ -17,7 +17,7 @@ import jakarta.persistence.ManyToOne;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "transaction_type")
-public class Transaction implements Serializable{
+public abstract class Transaction implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
